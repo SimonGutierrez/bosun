@@ -5,7 +5,7 @@
     "owner": "marvinody",
     "version": "1.0.0",
     "orientation": "portrait",
-    "entryPoint": "./src/App.js",
+    "entryPoint": "./src",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
