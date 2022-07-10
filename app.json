@@ -2,14 +2,16 @@
   "expo": {
     "name": "bosun",
     "slug": "bosun",
+    "owner": "marvinody",
     "version": "1.0.0",
     "orientation": "portrait",
+    "entryPoint": "./src/App.js",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f4f3f1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
