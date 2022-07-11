@@ -1,13 +1,30 @@
 import Entypo from "@expo/vector-icons/Entypo";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect, useCallback } from "react";
-import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { connect } from "react-redux";
 
 import ImageViewer from "./ImageViewer";
+import Login from "./Login";
+import RegMain from "./Registration/RegMain";
 import { doneLoadingInitial } from "./store";
+
+const Stack = createNativeStackNavigator();
+
+const ProfileScreen = ({ navigation, route }) => {
+  return <Text>This is {route.params.name}'s profile</Text>;
+};
 
 const App = (props) => {
   console.log("LOADING");
@@ -21,7 +38,7 @@ const App = (props) => {
         await Font.loadAsync(Entypo.font);
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
         console.log("Arbitrary 2s delay");
       } catch (e) {
         console.warn(e);
@@ -35,10 +52,23 @@ const App = (props) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <ImageViewer />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {props.authenticated ? (
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen
+              name="RegMain"
+              component={RegMain}
+              options={{ headerShown: true, title: "" }}
+            />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+    // </View>
   );
 };
 
@@ -53,6 +83,7 @@ const styles = StyleSheet.create({
 
 const mapState = (state) => ({
   showSplash: state.splash,
+  authenticated: state.auth.authenticated,
 });
 
 const mapDispatch = (dispatch) => ({
