@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 
-import { registerRootComponent } from "expo";
 import * as React from "react";
 import { Provider } from "react-redux";
 
@@ -13,4 +12,4 @@ const app = () => (
   </Provider>
 );
 
-export default registerRootComponent(app);
+export default app;
