@@ -3,7 +3,7 @@ import "react-native-gesture-handler";
 import * as React from "react";
 import { Provider } from "react-redux";
 
-import App from "./src/App";
+import App from "./src/Components/App";
 import store from "./src/store";
 
 const app = () => (

@@ -15,10 +15,10 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 
+import { doneLoadingInitial } from "../store";
 import ImageViewer from "./ImageViewer";
 import Login from "./Login";
 import RegMain from "./Registration/RegMain";
-import { doneLoadingInitial } from "./store";
 
 const Stack = createNativeStackNavigator();
 

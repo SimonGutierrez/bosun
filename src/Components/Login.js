@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { TextInput, StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
 
-import { attemptLogin } from "./store";
+import { attemptLogin } from "../store";
 
 const Login = ({ navigation, login }) => {
   const [email, setEmail] = useState("");

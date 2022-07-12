@@ -2,7 +2,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useState, useEffect, useCallback } from "react";
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 const ImageViewer = () => {
   const [selectedImage, setSelectedImage] = useState(null);

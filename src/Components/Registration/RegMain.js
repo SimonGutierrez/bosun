@@ -1,8 +1,9 @@
 import { Picker } from "@react-native-picker/picker";
 import { useState, useEffect, useCallback } from "react";
 import { TextInput, StyleSheet, Text, View, Button } from "react-native";
-import ModalSelector from "react-native-modal-selector";
 import { connect } from "react-redux";
+
+import { SelectPicker } from "./SelectPicker";
 
 const AGE_RANGES = [
   {
@@ -37,12 +38,41 @@ const AGE_RANGES = [
   },
 ];
 
+const EXPERIENCE_RANGES = [
+  {
+    low: 0,
+    high: 3,
+    label: "0 - 3",
+  },
+  {
+    low: 4,
+    high: 6,
+    label: "4 - 6",
+  },
+  {
+    low: 7,
+    high: 9,
+    label: "7 - 9",
+  },
+  {
+    low: 10,
+    label: "10+",
+  },
+];
+
 const RegMain = ({ navigation, login }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ageBrkIdx, setAgeBrkIdx] = useState(-1);
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [expAgeIdx, setExpAgeIdx] = useState(-1);
+
+  const everythingFilledOut =
+    name.length > 0 &&
+    email.length > 0 &&
+    password.length > 0 &&
+    ageBrkIdx > -1 &&
+    expAgeIdx > -1;
 
   return (
     <View style={styles.container}>
@@ -78,41 +108,34 @@ const RegMain = ({ navigation, login }) => {
         />
       </View>
 
-      <ModalSelector
+      <SelectPicker
+        PickerStyle={styles.inputView}
+        TextStyle={styles.textInput}
         data={AGE_RANGES.map((el, idx) => ({ ...el, key: idx }))}
-        initValue="Age Bracket"
-        onModalClose={(option) => {
-          console.log({ setting: option.key });
-          if (option.key === undefined) {
-            return;
-          }
-          setAgeBrkIdx(option.key);
-          console.log(
-            option.key >= 0
-              ? `Age Bracket: ${AGE_RANGES[option.key].label}`
-              : ""
-          );
-        }}
-      >
-        <TextInput
-          style={{
-            borderWidth: 1,
-            borderColor: "#ccc",
-            padding: 10,
-            height: 30,
-          }}
-          editable={false}
-          placeholder="Age Bracket"
-          value={
-            ageBrkIdx < 0 ? "" : `Age Bracket: ${AGE_RANGES[ageBrkIdx].label}`
-          }
-        />
-      </ModalSelector>
+        placeholder="Age Bracket"
+        text={
+          ageBrkIdx < 0 ? "" : `Age Bracket: ${AGE_RANGES[ageBrkIdx].label}`
+        }
+        onChangeText={setAgeBrkIdx}
+      />
+
+      <SelectPicker
+        PickerStyle={styles.inputView}
+        TextStyle={styles.textInput}
+        data={EXPERIENCE_RANGES.map((el, idx) => ({ ...el, key: idx }))}
+        placeholder="Experience (Years)"
+        text={
+          expAgeIdx < 0
+            ? ""
+            : `Experience (Years): ${EXPERIENCE_RANGES[expAgeIdx].label}`
+        }
+        onChangeText={setExpAgeIdx}
+      />
 
       <View style={styles.submitButton}>
         <Button
-          disabled={email.length === 0 || password.length === 0}
-          title="Login"
+          disabled={!everythingFilledOut}
+          title="Register"
           onPress={() => login({ email, password })}
         />
       </View>
@@ -134,7 +157,8 @@ const styles = StyleSheet.create({
     width: "70%",
     height: 45,
     marginBottom: 20,
-    alignItems: "center",
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
   textInput: {
     width: "100%",
