@@ -16,15 +16,13 @@ import {
 import { connect } from "react-redux";
 
 import { doneLoadingInitial } from "../store";
+import Dashboard from "./Dashboard";
 import ImageViewer from "./ImageViewer";
 import Login from "./Login";
+import RegSchool from "./Onboarding/SchoolSelection";
 import RegMain from "./Registration/RegMain";
 
 const Stack = createNativeStackNavigator();
-
-const ProfileScreen = ({ navigation, route }) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
-};
 
 const App = (props) => {
   console.log("LOADING");
@@ -53,9 +51,17 @@ const App = (props) => {
 
   return (
     <NavigationContainer>
+      <StatusBar style="auto" />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {props.authenticated ? (
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <>
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen
+              name="RegSchool"
+              component={RegSchool}
+              options={{ headerShown: true, title: "School Interests" }}
+            />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" component={Login} />

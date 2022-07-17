@@ -10,6 +10,7 @@ const Login = ({ navigation, login }) => {
 
   return (
     <View style={styles.container}>
+      <Button title="debug" onPress={() => navigation.navigate("Dashboard")} />
       <View>
         <Button
           title="Create an Account"

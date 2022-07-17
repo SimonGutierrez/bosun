@@ -1,0 +1,108 @@
+{
+  "schools": [
+    {
+      "name": "School of Wislubca",
+      "id": "4d0a7af0-3086-5e23-959f-154643a620f2",
+      "lastDate": "2022-09-21T05:28:46.489Z",
+      "steps": [
+        {
+          "name": "Submit Transcripts",
+          "suggestedDate": "2022-08-21",
+          "status": "completed"
+        },
+        {
+          "name": "Take GMAT",
+          "suggestedDate": "2022-08-30",
+          "status": "inProgress"
+        },
+        {
+          "name": "Ask for Recommendation Letters",
+          "suggestedDate": "2022-08-15",
+          "status": "inProgress"
+        },
+        {
+          "name": "Submit Recommendation Letters",
+          "suggestedDate": "2022-08-22",
+          "status": "notStarted"
+        },
+        {
+          "name": "Submit Essay 1",
+          "suggestedDate": "2022-08-25",
+          "status": "notStarted"
+        },
+        {
+          "name": "Submit Essay 2",
+          "suggestedDate": "2022-08-27",
+          "status": "notStarted"
+        },
+        {
+          "name": "Submit Essay 3",
+          "suggestedDate": "2022-08-29",
+          "status": "notStarted"
+        },
+        {
+          "name": "Schedule Interview",
+          "suggestedDate": "2022-09-03",
+          "status": "notStarted"
+        },
+        {
+          "name": "Ace Interview",
+          "suggestedDate": "2022-09-10",
+          "status": "notStarted"
+        }
+      ]
+    },
+    {
+      "name": "School of Savcivfi",
+      "id": "b50e7e0d-bf58-5d31-af9f-a11bf9ef678e",
+      "lastDate": "2022-09-21T05:28:46.489Z",
+      "steps": [
+        {
+          "name": "Submit Transcripts",
+          "suggestedDate": "2022-08-21",
+          "status": "completed"
+        },
+        {
+          "name": "Take GMAT",
+          "suggestedDate": "2022-08-30",
+          "status": "inProgress"
+        },
+        {
+          "name": "Ask for Recommendation Letters",
+          "suggestedDate": "2022-08-15",
+          "status": "inProgress"
+        },
+        {
+          "name": "Submit Recommendation Letters",
+          "suggestedDate": "2022-08-22",
+          "status": "notStarted"
+        },
+        {
+          "name": "Submit Essay 1",
+          "suggestedDate": "2022-08-25",
+          "status": "notStarted"
+        },
+        {
+          "name": "Submit Essay 2",
+          "suggestedDate": "2022-08-27",
+          "status": "notStarted"
+        },
+        {
+          "name": "Submit Essay 3",
+          "suggestedDate": "2022-08-29",
+          "status": "notStarted"
+        },
+        {
+          "name": "Schedule Interview",
+          "suggestedDate": "2022-09-03",
+          "status": "notStarted"
+        },
+        {
+          "name": "Ace Interview",
+          "suggestedDate": "2022-09-10",
+          "status": "notStarted"
+        }
+      ]
+    }
+  ]
+}

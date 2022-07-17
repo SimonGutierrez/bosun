@@ -1,9 +1,9 @@
-import { Picker } from "@react-native-picker/picker";
 import { useState, useEffect, useCallback } from "react";
 import { TextInput, StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
 
-import { SelectPicker } from "./SelectPicker";
+import { attemptRegister } from "../../store";
+import { SelectPicker } from "../util/SelectPicker";
 
 const AGE_RANGES = [
   {
@@ -60,7 +60,7 @@ const EXPERIENCE_RANGES = [
   },
 ];
 
-const RegMain = ({ navigation, login }) => {
+const RegMain = ({ navigation, register }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -83,6 +83,7 @@ const RegMain = ({ navigation, login }) => {
           autoComplete="name"
           autoCapitalize="words"
           onChangeText={setName}
+          textContentType="name"
           style={styles.textInput}
         />
       </View>
@@ -92,6 +93,7 @@ const RegMain = ({ navigation, login }) => {
           keyboardType="email-address"
           autoComplete="email"
           autoCapitalize="none"
+          textContentType="emailAddress"
           onChangeText={setEmail}
           style={styles.textInput}
         />
@@ -102,6 +104,7 @@ const RegMain = ({ navigation, login }) => {
           placeholder="password"
           autoComplete="password"
           autoCapitalize="none"
+          textContentType="password"
           secureTextEntry
           onChangeText={setPassword}
           style={styles.textInput}
@@ -135,8 +138,16 @@ const RegMain = ({ navigation, login }) => {
       <View style={styles.submitButton}>
         <Button
           disabled={!everythingFilledOut}
-          title="Register"
-          onPress={() => login({ email, password })}
+          title="Continue"
+          onPress={() => {
+            register({
+              name,
+              email,
+              password,
+              ageBrk: AGE_RANGES[ageBrkIdx],
+              expAge: EXPERIENCE_RANGES[expAgeIdx],
+            });
+          }}
         />
       </View>
     </View>
@@ -165,7 +176,6 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 1,
     padding: 10,
-    marginLeft: 20,
   },
   submitButton: {
     padding: 8,
@@ -174,6 +184,9 @@ const styles = StyleSheet.create({
 });
 
 const mapState = () => ({});
-const mapDispatch = (dispatch) => ({});
+const mapDispatch = (dispatch) => ({
+  register: ({ name, email, password, ageBrk, expAge }) =>
+    dispatch(attemptRegister({ name, email, password, ageBrk, expAge })),
+});
 
 export default connect(mapState, mapDispatch)(RegMain);
