@@ -1,3 +1,4 @@
+import luxon, { DateTime } from "luxon";
 import { useEffect } from "react";
 import {
   Image,
@@ -14,6 +15,8 @@ import { connect } from "react-redux";
 
 import { loadDashboard, updateStepStatus } from "../store/dashboard";
 import { SelectPicker } from "./util/SelectPicker";
+
+const capitalize = (s) => s[0].toUpperCase() + s.slice(1);
 
 const STATUSES = [
   {
@@ -37,32 +40,47 @@ const Item = ({
   stepIdx,
   schoolId,
   updateStepStatus,
-}) => (
-  <View style={styles.item}>
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "flex-end",
-        justifyContent: "space-between",
-        width: "100%",
-      }}
-    >
-      <Text style={styles.title}>{name}</Text>
-      <SelectPicker
-        PickerStyle={styles.pickerStyle}
-        data={STATUSES}
-        text={STATUSES.find((s) => s.key === status).label}
-        onChangeText={(newStatus) => {
-          updateStepStatus({ newStatus, stepIdx, schoolId });
+}) => {
+  const isCompleted = status === "completed";
+  let subText = `All done!`;
+  console.log({
+    isCompleted,
+    status,
+  });
+  if (!isCompleted) {
+    subText = `${DateTime.fromISO(
+      suggestedDate
+    ).toRelativeCalendar()} - ${suggestedDate}`;
+  }
+
+  return (
+    <View style={styles.item}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          width: "100%",
         }}
-      />
-      {/* <Text style={styles.status}>{status}</Text> */}
+      >
+        <Text style={styles.title}>{name}</Text>
+        <SelectPicker
+          PickerStyle={styles.pickerStyle}
+          TextStyle={styles.pickerTextStyle}
+          data={STATUSES}
+          text={STATUSES.find((s) => s.key === status).label}
+          onChangeText={(newStatus) => {
+            updateStepStatus({ newStatus, stepIdx, schoolId });
+          }}
+        />
+        {/* <Text style={styles.status}>{status}</Text> */}
+      </View>
+      <View>
+        <Text style={styles.subtitle}>{capitalize(subText)}</Text>
+      </View>
     </View>
-    <View>
-      <Text style={styles.subtitle}>{suggestedDate}</Text>
-    </View>
-  </View>
-);
+  );
+};
 
 const Dashboard = ({ navigation, getData, schools, updateStepStatus }) => {
   useEffect(() => {
@@ -102,6 +120,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginLeft: 32,
+    marginRight: 8,
     borderRadius: 8,
   },
   header: {
@@ -119,6 +138,11 @@ const styles = StyleSheet.create({
   },
   pickerStyle: {
     backgroundColor: "#00F5D4",
+    borderRadius: 8,
+    alignSelf: "center",
+  },
+  pickerTextStyle: {
+    padding: 8,
   },
 });
 
