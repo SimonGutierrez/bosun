@@ -18,6 +18,18 @@ storage.sync.dashboard = async (params) => {
   return initialState;
 };
 
+export const loadInitialDashboard = (schools) => async (dispatch) => {
+  const data = {
+    schools,
+    refreshing: false,
+  };
+  await storage.save({
+    key: "dashboard",
+    data,
+  });
+  dispatch(setDashboardData(data));
+};
+
 export const updateStepStatus =
   ({ newStatus, stepIdx, schoolId }) =>
   async (dispatch, getState) => {

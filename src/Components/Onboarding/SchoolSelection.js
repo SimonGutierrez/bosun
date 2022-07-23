@@ -13,7 +13,9 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 
+import makeSchoolDashboardData from "../../../data/makeFakeDashboard";
 import schools from "../../../data/schools.json";
+import { loadInitialDashboard } from "../../store";
 
 const useSetState = (initial) => {
   const [set, setSet] = useState(new Set(...initial));
@@ -59,7 +61,7 @@ const Item = ({ title, onPress, isSelected }) => (
   </TouchableHighlight>
 );
 
-const SchoolSelection = ({ navigation }) => {
+const SchoolSelection = ({ navigation, loadDashboard }) => {
   const [filter, setFilter] = useState("");
   const set = useSetState([]);
 
@@ -116,7 +118,17 @@ const SchoolSelection = ({ navigation }) => {
           <Text>{set.size} Selected</Text>
         </View>
         <View View style={styles.bottomButtonView}>
-          <Button title="Continue" disabled={set.size === 0} />
+          <Button
+            title="Continue"
+            disabled={set.size === 0}
+            onPress={() => {
+              const wantedSchools = schools
+                .filter((school) => set.has(school.id))
+                .map(makeSchoolDashboardData);
+
+              loadDashboard(wantedSchools);
+            }}
+          />
         </View>
       </View>
     </View>
@@ -194,6 +206,8 @@ const styles = StyleSheet.create({
 });
 
 const mapState = () => ({});
-const mapDispatch = (dispatch) => ({});
+const mapDispatch = (dispatch) => ({
+  loadDashboard: (schools) => dispatch(loadInitialDashboard(schools)),
+});
 
 export default connect(mapState, mapDispatch)(SchoolSelection);
