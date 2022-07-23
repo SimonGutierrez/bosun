@@ -3,6 +3,7 @@ import { TextInput, StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
 
 import { attemptLogin } from "../store";
+import storage from "../util/storage";
 
 const Login = ({ navigation, login }) => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,14 @@ const Login = ({ navigation, login }) => {
 
   return (
     <View style={styles.container}>
-      <Button title="debug" onPress={() => navigation.navigate("Dashboard")} />
+      <Button
+        title="debug"
+        onPress={async () => {
+          await storage.remove({ key: "dashboard" });
+          const db = await storage.load({ key: "dashboard" });
+          console.log({ db });
+        }}
+      />
       <View>
         <Button
           title="Create an Account"

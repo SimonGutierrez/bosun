@@ -1,4 +1,9 @@
 import Entypo from "@expo/vector-icons/Entypo";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faCircleCheck,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Font from "expo-font";
@@ -17,10 +22,11 @@ import { connect } from "react-redux";
 
 import { doneLoadingInitial } from "../store";
 import Dashboard from "./Dashboard";
-import ImageViewer from "./ImageViewer";
 import Login from "./Login";
 import RegSchool from "./Onboarding/SchoolSelection";
 import RegMain from "./Registration/RegMain";
+
+library.add(faCircleCheck, faMagnifyingGlass);
 
 const Stack = createNativeStackNavigator();
 

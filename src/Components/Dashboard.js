@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 
 import { loadDashboard, updateStepStatus } from "../store/dashboard";
+import SchoolSelection from "./Onboarding/SchoolSelection";
 import { SelectPicker } from "./util/SelectPicker";
 
 const capitalize = (s) => s[0].toUpperCase() + s.slice(1);
@@ -82,30 +83,47 @@ const Item = ({
   );
 };
 
-const Dashboard = ({ navigation, getData, schools, updateStepStatus }) => {
+const Dashboard = ({
+  navigation,
+  getData,
+  schools,
+  updateStepStatus,
+  name,
+}) => {
   useEffect(() => {
     getData();
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <SectionList
-        sections={schools}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item, index, section }) => (
-          <Item
-            {...item}
-            stepIdx={index}
-            schoolId={section.id}
-            updateStepStatus={updateStepStatus}
+      {schools.length > 0 && (
+        <>
+          <Text>Hello, {capitalize(name)}</Text>
+          <SectionList
+            sections={schools}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({ item, index, section }) => (
+              <Item
+                {...item}
+                stepIdx={index}
+                schoolId={section.id}
+                updateStepStatus={updateStepStatus}
+              />
+            )}
+            renderSectionHeader={({ section: { name, data } }) => (
+              <Text style={styles.header}>
+                {name} - {data.filter((s) => s.status === "completed").length}/{" "}
+                {data.length}
+              </Text>
+            )}
           />
-        )}
-        renderSectionHeader={({ section: { name, data } }) => (
-          <Text style={styles.header}>
-            {name} - {data.filter((s) => s.status === "completed").length}/{" "}
-            {data.length}
-          </Text>
-        )}
-      />
+        </>
+      )}
+
+      {schools.length === 0 && (
+        <>
+          <SchoolSelection />
+        </>
+      )}
     </SafeAreaView>
   );
 };
@@ -147,6 +165,7 @@ const styles = StyleSheet.create({
 });
 
 const mapState = (state) => ({
+  name: state.auth.name,
   schools: state.dashboard.schools.map((s) => ({
     name: s.name,
     data: s.steps,

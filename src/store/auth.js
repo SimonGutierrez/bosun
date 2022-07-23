@@ -2,7 +2,7 @@ import storage from "../util/storage";
 const SUCCESSFUL_LOGIN = "SUCCESSFUL_LOGIN";
 
 const initialState = {
-  authenticated: true,
+  authenticated: false,
   name: null,
 };
 

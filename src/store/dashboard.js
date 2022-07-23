@@ -1,6 +1,6 @@
 import { cloneDeep, set } from "lodash";
 
-import fakeDashboard from "../../data/fakeDashboard.json";
+// import fakeDashboard from "../../data/fakeDashboard.json";
 import storage from "../util/storage";
 
 const initialState = {
@@ -15,7 +15,7 @@ const setDashboardRefresh = () => ({ type: SET_DASHBOARD_REFRESHING });
 const setDashboardData = (data) => ({ type: SET_DASHBOARD_DATA, data });
 
 storage.sync.dashboard = async (params) => {
-  return fakeDashboard;
+  return initialState;
 };
 
 export const updateStepStatus =
